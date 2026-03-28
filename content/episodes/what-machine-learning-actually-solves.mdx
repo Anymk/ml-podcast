@@ -1,0 +1,69 @@
+---
+slug: what-machine-learning-actually-solves
+seriesSlug: ml-foundations
+publishedAt: 2026-03-28
+duration: 12 min
+cover: /covers/episode-01.svg
+theme: Foundations
+difficulty: Beginner
+featured: true
+tags:
+  - intro
+  - workflow
+  - evaluation
+title:
+  zh: 机器学习到底在解决什么问题
+  en: What Machine Learning Actually Solves
+summary:
+  zh: 不是所有智能功能都需要机器学习，先理解问题类型，才知道模型该不该上场。
+  en: Not every intelligent feature needs machine learning. Understand the problem shape before you reach for a model.
+highlights:
+  zh:
+    - 区分规则系统、统计预测和生成式任务
+    - 先定义输入、输出和反馈回路，再谈模型
+    - 明白业务问题与建模问题之间的翻译关系
+  en:
+    - Separate rules-based systems, predictive tasks, and generative use cases
+    - Define inputs, outputs, and feedback loops before choosing a model
+    - Translate business questions into modeling questions more clearly
+readingList:
+  - label: Google's ML problem framing guide
+    href: https://developers.google.com/machine-learning/problem-framing
+  - label: fast.ai course
+    href: https://course.fast.ai/
+---
+## 先别急着问“该用什么模型”
+
+初学机器学习时，我们很容易把注意力放在模型名字上，比如逻辑回归、随机森林、Transformer，或者最近很火的各种 LLM 架构。但在真实项目里，真正值得先确认的通常不是模型，而是问题本身：**我们到底想让系统做出什么判断，系统拿得到什么输入，又如何知道输出是不是好结果。**
+
+如果一个问题能被稳定规则覆盖，机器学习未必是最划算的选项。比如固定格式的订单路由、简单风控阈值、少量条件分支，常常用清晰规则就能完成。
+
+## 机器学习更适合处理哪类问题
+
+一个问题通常更适合机器学习，当它同时满足下面这些条件：
+
+- 输入模式复杂，难以用显式规则完整穷举。
+- 你能拿到一定规模的数据样本。
+- 输出可以被评价，哪怕评价有噪声。
+- 错误不是零容忍，而是允许通过迭代逐步改进。
+
+举个例子，判断一封邮件是不是垃圾邮件，很难靠一堆永远稳定的规则来覆盖全部情况；但我们可以基于历史数据学习某些模式，并通过准确率、召回率等指标不断调优。
+
+## 先画出最小工作流
+
+在任何建模之前，先把这四件事写清楚：
+
+1. 输入是什么。
+2. 输出是什么。
+3. 标签或反馈来自哪里。
+4. 成功怎么衡量。
+
+> 当你能把这四个问题说清楚时，模型选择才真正开始变得有意义。
+
+## 对产品团队有什么帮助
+
+对产品和工程团队来说，这种问题定义方式有两个好处。
+
+第一，它会自然暴露数据缺口。第二，它会让你更早意识到某些需求其实是交互设计问题，而不是建模问题。
+
+如果你把“机器学习项目”理解成一条反馈回路，而不是一个模型文件，你会更快进入正确的学习节奏。

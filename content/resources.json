@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "fastai-course",
+    "type": "Course",
+    "href": "https://course.fast.ai/",
+    "stage": "Starter",
+    "tags": ["vision", "practical"],
+    "title": {
+      "zh": "fast.ai 实战课程",
+      "en": "fast.ai Practical Course"
+    },
+    "summary": {
+      "zh": "适合从做项目进入机器学习，不需要先把所有理论补齐。",
+      "en": "A practical course for learners who want to start from projects rather than theory overload."
+    }
+  },
+  {
+    "slug": "hands-on-ml",
+    "type": "Guide",
+    "href": "https://www.oreilly.com/library/view/hands-on-machine-learning/9781098125967/",
+    "stage": "Starter",
+    "tags": ["book", "classic"],
+    "title": {
+      "zh": "Hands-On Machine Learning",
+      "en": "Hands-On Machine Learning"
+    },
+    "summary": {
+      "zh": "经典入门书，适合配合系列内容打基础。",
+      "en": "A classic hands-on reference that pairs well with a structured beginner path."
+    }
+  },
+  {
+    "slug": "hugging-face-course",
+    "type": "Course",
+    "href": "https://huggingface.co/learn",
+    "stage": "Builder",
+    "tags": ["llm", "transformers"],
+    "title": {
+      "zh": "Hugging Face 学习中心",
+      "en": "Hugging Face Learn"
+    },
+    "summary": {
+      "zh": "适合进一步理解 Transformers、数据集和推理工具链。",
+      "en": "Great for learning transformers, datasets, and modern inference tooling."
+    }
+  },
+  {
+    "slug": "papers-with-code",
+    "type": "Tool",
+    "href": "https://paperswithcode.com/",
+    "stage": "Research",
+    "tags": ["papers", "benchmarks"],
+    "title": {
+      "zh": "Papers with Code",
+      "en": "Papers with Code"
+    },
+    "summary": {
+      "zh": "追踪论文、任务和 benchmark 的高密度入口。",
+      "en": "A dense starting point for papers, tasks, implementations, and benchmarks."
+    }
+  }
+]

@@ -1,0 +1,59 @@
+---
+slug: rag-is-not-a-product-strategy
+seriesSlug: llm-builders
+publishedAt: 2026-03-26
+duration: 11 min
+cover: /covers/episode-03.svg
+theme: LLM Systems
+difficulty: Intermediate
+featured: true
+tags:
+  - llm
+  - rag
+  - product
+title:
+  zh: RAG 不是产品策略，它只是一个手段
+  en: RAG Is Not a Product Strategy
+summary:
+  zh: 当团队把 RAG 当作默认答案时，通常说明问题定义还不够清楚。
+  en: When RAG becomes the default answer, it often means the product problem still is not clearly framed.
+highlights:
+  zh:
+    - RAG 擅长补充知识，不擅长替代需求定义
+    - 先缩小任务，再决定是否需要检索增强
+    - 评估要看任务完成度，而不是只看检索命中率
+  en:
+    - RAG is strong at bringing in knowledge, not at replacing product thinking
+    - Narrow the task before deciding whether retrieval is necessary
+    - Evaluate end-task performance, not just retrieval hit rate
+readingList:
+  - label: OpenAI cookbook RAG examples
+    href: https://cookbook.openai.com/
+  - label: Hugging Face RAG resources
+    href: https://huggingface.co/learn
+---
+## 为什么很多团队一上来就想做 RAG
+
+因为它听起来像一个合理的中间答案：既不重新训练模型，也能让模型“知道”更多业务知识。这当然有价值，但危险在于，团队很容易把“加一个检索层”误当成“已经想清楚产品边界”。
+
+## 先判断任务是不是知识不足
+
+在引入 RAG 之前，最好先确认当前失败到底来自哪里。
+
+- 如果失败是因为模型拿不到关键背景信息，检索增强可能有效。
+- 如果失败是因为任务定义过宽，或者用户意图本来就含糊，RAG 只会把模糊流程做得更复杂。
+- 如果失败是因为输出标准不清楚，那你更需要的是评估设计，而不是更多上下文。
+
+## 产品上更重要的问题
+
+真正值得先回答的是：
+
+1. 用户在什么时刻需要外部知识。
+2. 这些知识的时效性和可信度要求有多高。
+3. 最后要优化的是速度、准确率，还是可解释性。
+
+## 把 RAG 拉回工具位置
+
+把 RAG 看成一个工具层会更健康。它的价值在于帮助模型接触上下文，而不是替你定义任务边界、用户价值和交互策略。
+
+当一个团队先把任务缩小到一个高频、可评估、可解释的场景，再决定是否接检索，最后做出来的系统通常更稳。

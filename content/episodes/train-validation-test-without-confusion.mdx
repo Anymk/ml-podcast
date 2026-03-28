@@ -1,0 +1,63 @@
+---
+slug: train-validation-test-without-confusion
+seriesSlug: ml-foundations
+publishedAt: 2026-03-27
+duration: 14 min
+cover: /covers/episode-02.svg
+theme: Foundations
+difficulty: Beginner
+featured: true
+tags:
+  - data
+  - metrics
+  - experimentation
+title:
+  zh: 别再混淆训练集、验证集和测试集
+  en: Stop Confusing Train, Validation, and Test Sets
+summary:
+  zh: 把数据拆分看作实验设计问题，而不是模板动作，你会更理解评估的边界。
+  en: Treat data splitting as experiment design rather than a template ritual, and evaluation starts making much more sense.
+highlights:
+  zh:
+    - 训练集负责学习，验证集负责选择，测试集负责最终确认
+    - 数据泄漏通常发生在你以为“只是方便处理一下”的地方
+    - 指标必须和产品风险一起看，而不是单独存在
+  en:
+    - Train learns, validation selects, and test confirms final behavior
+    - Leakage often starts where preprocessing feels harmless
+    - Metrics should be read alongside product risk, not in isolation
+readingList:
+  - label: scikit-learn model evaluation docs
+    href: https://scikit-learn.org/stable/model_selection.html
+  - label: Google Rules of ML
+    href: https://developers.google.com/machine-learning/guides/rules-of-ml
+---
+## 为什么要拆成三份数据
+
+很多学习资料都会告诉你把数据分成训练集、验证集和测试集，但如果不理解背后的职责，这个动作就很容易变成机械复制。
+
+训练集负责让模型调整参数。验证集帮助你在多个方案之间做选择，例如调整超参数、比较不同特征工程方案。测试集则尽量留到最后，用来回答一个更严肃的问题：**你最后选中的方案，在真正未见过的数据上表现如何。**
+
+## 常见误区：把验证集当测试集反复看
+
+当团队持续盯着验证集分数做决策时，验证集本身也会慢慢被“学会”。这时它不再是一个客观的选择依据，而更像是第二个训练目标。
+
+所以，测试集最重要的意义不只是“再测一次”，而是给你一个最后的外部视角。
+
+## 数据泄漏往往长什么样
+
+数据泄漏并不总是夸张到把答案直接塞给模型。更常见的是：
+
+- 在划分数据之前就先对全量数据做标准化。
+- 把未来时间点才知道的信息混进当前样本。
+- 在特征里保留了和标签高度重合的代理字段。
+
+## 一个更实用的判断方式
+
+每次做评估设计时，不妨问自己：
+
+- 真实上线时，这个信息在预测瞬间能拿到吗？
+- 我现在的验证方式，和未来线上流量分布接近吗？
+- 如果分数很好看，最可能的错觉来自哪里？
+
+这些问题会比“比例到底是 8:1:1 还是 7:2:1”更接近真正重要的地方。

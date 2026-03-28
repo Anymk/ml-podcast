@@ -1,0 +1,31 @@
+{
+  "slug": "llm-builders",
+  "cover": "/covers/llm-builders.svg",
+  "theme": "LLM Systems",
+  "difficulty": "Intermediate",
+  "order": 2,
+  "audience": {
+    "zh": "适合已经理解基础 ML 概念、想进一步做 LLM 产品原型的开发者",
+    "en": "Best for developers who know core ML concepts and want to prototype LLM products"
+  },
+  "title": {
+    "zh": "LLM 产品构建者路径",
+    "en": "LLM Builder Path"
+  },
+  "summary": {
+    "zh": "关注向量检索、评估、提示工程与产品化边界，帮助你从 demo 走向更稳的原型。",
+    "en": "Focus on retrieval, evaluation, prompting, and product boundaries so you can move from demos to sturdier prototypes."
+  },
+  "outcomes": {
+    "zh": [
+      "理解 LLM 应用中的上下文注入与评估逻辑",
+      "知道什么时候该用 RAG、什么时候该缩小任务范围",
+      "能设计一个更贴近真实用户场景的 AI 功能原型"
+    ],
+    "en": [
+      "Understand context injection and evaluation tradeoffs in LLM apps",
+      "Know when to use RAG and when to narrow the problem instead",
+      "Design AI product prototypes that map closer to real user behavior"
+    ]
+  }
+}

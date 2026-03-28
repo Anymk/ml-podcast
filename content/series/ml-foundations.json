@@ -1,0 +1,31 @@
+{
+  "slug": "ml-foundations",
+  "cover": "/covers/ml-foundations.svg",
+  "theme": "Foundations",
+  "difficulty": "Beginner",
+  "order": 1,
+  "audience": {
+    "zh": "适合想系统进入机器学习的前端、产品和数据方向学习者",
+    "en": "Best for frontend, product, and data learners entering ML systematically"
+  },
+  "title": {
+    "zh": "机器学习基础路径",
+    "en": "Machine Learning Foundations"
+  },
+  "summary": {
+    "zh": "从问题定义、数据集、模型训练到评估方法，建立一套完整的 ML 入门视角。",
+    "en": "Build a complete beginner-friendly mental model for ML, from problem framing and datasets to training loops and evaluation."
+  },
+  "outcomes": {
+    "zh": [
+      "理解监督学习任务的常见工作流",
+      "知道训练集、验证集和测试集分别解决什么问题",
+      "能够读懂基础模型实验结果并避免常见误区"
+    ],
+    "en": [
+      "Understand the common workflow behind supervised learning projects",
+      "Know what train, validation, and test sets are each responsible for",
+      "Read simple model results with fewer beginner mistakes"
+    ]
+  }
+}
