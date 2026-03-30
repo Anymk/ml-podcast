@@ -8,7 +8,7 @@ theme: Code Lab
 difficulty: Beginner
 featured: true
 tags:
-  - javascript
+  - python
   - browser
   - beginner
   - code
@@ -16,70 +16,32 @@ title:
   zh: 页面内运行：线性回归预测
   en: Run Linear Regression in the Page
 summary:
-  zh: 直接在页面里运行线性回归代码，根据学习小时数预测测验分数。
-  en: Run linear regression directly in the page to predict a quiz score from study hours.
+  zh: 直接在页面里运行 Python，根据学习小时数预测测验分数。
+  en: Run Python directly in the page and predict a quiz score from study hours.
 highlights:
   zh:
-    - 页面内直接运行
-    - 输入学习时长就能得到预测分数
+    - 页面内直接运行 Python
+    - 输入学习时长得到预测分数
     - 适合 0 基础理解回归
   en:
-    - Run directly in the page
-    - Enter study hours and get a score prediction
+    - Run Python in the page
+    - Predict a score from study hours
     - Beginner friendly regression lesson
 readingList:
   - label: Linear regression intro
     href: https://developers.google.com/machine-learning/crash-course/linear-regression
-  - label: JavaScript basics
-    href: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting
+  - label: Python functions
+    href: https://docs.python.org/3/tutorial/controlflow.html#defining-functions
 ---
-## 直接运行
+## 使用方式
 
-这个例子会根据学习小时数，预测一位学生可能拿到的测验分数。
+直接在下方运行代码。
 
-<CodePlayground
-  title="Linear Regression Demo"
-  description="这段代码先根据训练数据算出一条直线，再用这条直线预测新学生的分数。你可以直接修改 newHours。"
-  code={`const hours = [1, 2, 3, 4, 5];
-const scores = [48, 55, 63, 72, 81];
+1. 点击 `Run Python`
+2. 看 `Predicted score`
+3. 把 `new_hours` 改成别的数字
+4. 再运行一次
 
-function mean(values) {
-  return values.reduce((sum, value) => sum + value, 0) / values.length;
-}
+## 你会学到什么
 
-function fitLinearRegression(xs, ys) {
-  const xMean = mean(xs);
-  const yMean = mean(ys);
-
-  let numerator = 0;
-  let denominator = 0;
-
-  for (let i = 0; i < xs.length; i += 1) {
-    numerator += (xs[i] - xMean) * (ys[i] - yMean);
-    denominator += (xs[i] - xMean) ** 2;
-  }
-
-  const slope = numerator / denominator;
-  const intercept = yMean - slope * xMean;
-
-  return { slope, intercept };
-}
-
-function predictScore(model, hour) {
-  return model.slope * hour + model.intercept;
-}
-
-const model = fitLinearRegression(hours, scores);
-const newHours = 6;
-const predictedScore = predictScore(model, newHours);
-
-console.log("Slope:", model.slope.toFixed(2));
-console.log("Intercept:", model.intercept.toFixed(2));
-console.log("Predicted score:", predictedScore.toFixed(1));`}
-/>
-
-## 你可以马上改
-
-- 把 `const newHours = 6;` 改成 `const newHours = 2.5;`
-- 再点 `Run Code`
-- 看预测分数会怎么变化
+这个例子会根据学习小时数，预测学生的测验分数。

@@ -8,7 +8,7 @@ theme: Code Lab
 difficulty: Beginner
 featured: true
 tags:
-  - javascript
+  - python
   - browser
   - beginner
   - code
@@ -16,74 +16,32 @@ title:
   zh: 页面内运行：KNN 最近邻预测
   en: Run KNN Prediction in the Page
 summary:
-  zh: 不用跳出网页，直接点击 Run Code，用 KNN 算法预测新学生属于哪个学习组。
-  en: Stay on the page and click Run Code to predict which study group a new learner belongs to with KNN.
+  zh: 这节课改成了真正的 Python 页面内运行模式。你可以直接在下方修改代码，然后点击 Run Python。
+  en: This lesson now runs real Python in the page. Edit the code below and click Run Python.
 highlights:
   zh:
-    - 页面内直接运行
-    - 可编辑代码后再次运行
-    - 直接看到预测结果
+    - 页面内直接运行 Python
+    - 可编辑后重新运行
+    - 直接输出预测结果
   en:
-    - Run directly in the page
+    - Run Python in the page
     - Edit and rerun
-    - See the prediction immediately
+    - Immediate prediction output
 readingList:
   - label: KNN overview
     href: https://scikit-learn.org/stable/modules/neighbors.html
-  - label: JavaScript Array methods
-    href: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
+  - label: Python lists
+    href: https://docs.python.org/3/tutorial/introduction.html#lists
 ---
-## 直接运行
+## 使用方式
+
+直接看下方代码区。
+
+1. 点击 `Run Python`
+2. 查看输出结果
+3. 修改 `new_student`
+4. 再运行一次
+
+## 你会学到什么
 
 这个例子会预测一位新学生更像 `beginner` 还是 `advanced`。
-
-<CodePlayground
-  title="KNN Prediction Demo"
-  description="这段代码会找到距离最近的 3 个样本，然后投票得到最终分类结果。你可以直接改 newStudent 再点 Run Code。"
-  code={`const trainingData = [
-  { input: [1, 40], label: "beginner" },
-  { input: [2, 45], label: "beginner" },
-  { input: [2, 50], label: "beginner" },
-  { input: [4, 75], label: "advanced" },
-  { input: [5, 80], label: "advanced" },
-  { input: [6, 90], label: "advanced" }
-];
-
-function distance(pointA, pointB) {
-  const squared = pointA.reduce((sum, value, index) => {
-    return sum + (value - pointB[index]) ** 2;
-  }, 0);
-
-  return Math.sqrt(squared);
-}
-
-function knnPredict(data, newPoint, k) {
-  const neighbors = data
-    .map((item) => ({
-      label: item.label,
-      distance: distance(item.input, newPoint)
-    }))
-    .sort((a, b) => a.distance - b.distance)
-    .slice(0, k);
-
-  const votes = {};
-
-  for (const neighbor of neighbors) {
-    votes[neighbor.label] = (votes[neighbor.label] || 0) + 1;
-  }
-
-  return Object.entries(votes).sort((a, b) => b[1] - a[1])[0][0];
-}
-
-const newStudent = [3, 60];
-const prediction = knnPredict(trainingData, newStudent, 3);
-
-console.log("New student:", newStudent);
-console.log("Prediction:", prediction);`}
-/>
-
-## 你可以马上改
-
-- 把 `const newStudent = [3, 60];` 改成 `const newStudent = [6, 88];`
-- 再点一次 `Run Code`
-- 看结果会不会更接近 `advanced`

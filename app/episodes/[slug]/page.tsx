@@ -3,8 +3,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { EpisodeCard } from "@/components/cards";
+import { PythonPlayground } from "@/components/python-playground";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { getEpisodePlayground } from "@/lib/content/playgrounds";
 import { contentRepository } from "@/lib/content/repository";
 import { getRelatedEpisodes, renderEpisodeBody } from "@/lib/content/queries";
 import { resolveLocale, t } from "@/lib/i18n";
@@ -50,6 +52,7 @@ export default async function EpisodeDetailPage({
   const body = await renderEpisodeBody(episode.body);
   const related = await getRelatedEpisodes(episode);
   const isZh = locale === "zh";
+  const playground = getEpisodePlayground(episode.slug);
 
   return (
     <main className="page-shell">
@@ -93,6 +96,10 @@ export default async function EpisodeDetailPage({
         </section>
 
         <section className="article-prose">{body}</section>
+
+        {playground ? (
+          <PythonPlayground code={playground.code} description={playground.description} title={playground.title} />
+        ) : null}
 
         <section className="section-block">
           <div className="section-heading">

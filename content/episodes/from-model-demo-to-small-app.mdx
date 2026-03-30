@@ -8,7 +8,7 @@ theme: Code Lab
 difficulty: Beginner
 featured: false
 tags:
-  - javascript
+  - python
   - browser
   - beginner
   - code
@@ -16,93 +16,32 @@ title:
   zh: 页面内运行：朴素贝叶斯文本分类
   en: Run Naive Bayes Text Classification in the Page
 summary:
-  zh: 在页面里直接运行一个最小版朴素贝叶斯例子，判断一句话更像积极评价还是消极评价。
-  en: Run a tiny Naive Bayes example in the page and classify a sentence as positive or negative.
+  zh: 直接在页面里运行 Python，判断一句话更像积极评价还是消极评价。
+  en: Run Python directly in the page and classify a sentence as positive or negative.
 highlights:
   zh:
-    - 页面内直接运行
+    - 页面内直接运行 Python
     - 直接输出分类结果
-    - 能马上修改文本重新预测
+    - 修改文本后可重新预测
   en:
-    - Run directly in the page
+    - Run Python in the page
     - Immediate classification output
-    - Edit the text and rerun instantly
+    - Edit the text and rerun
 readingList:
   - label: Naive Bayes overview
     href: https://scikit-learn.org/stable/modules/naive_bayes.html
-  - label: Tokenization basics
-    href: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split
+  - label: Python strings
+    href: https://docs.python.org/3/tutorial/introduction.html#strings
 ---
-## 直接运行
+## 使用方式
+
+直接在下方代码区运行。
+
+1. 点击 `Run Python`
+2. 看 `Prediction`
+3. 修改 `test_text`
+4. 再运行一次
+
+## 你会学到什么
 
 这个例子会判断一句评论更像 `positive` 还是 `negative`。
-
-<CodePlayground
-  title="Naive Bayes Demo"
-  description="这段代码先统计正面和负面句子里的单词，再对新句子做分类。你可以直接修改 testText。"
-  code={`const trainingData = [
-  { text: "good course clear lesson", label: "positive" },
-  { text: "helpful teacher nice examples", label: "positive" },
-  { text: "great tutorial easy to follow", label: "positive" },
-  { text: "bad course confusing lesson", label: "negative" },
-  { text: "boring teacher unclear examples", label: "negative" },
-  { text: "hard tutorial not helpful", label: "negative" }
-];
-
-function tokenize(text) {
-  return text.toLowerCase().split(" ");
-}
-
-function trainNaiveBayes(data) {
-  const wordCounts = { positive: {}, negative: {} };
-  const docCounts = { positive: 0, negative: 0 };
-  const totalWords = { positive: 0, negative: 0 };
-  const vocabulary = new Set();
-
-  for (const item of data) {
-    docCounts[item.label] += 1;
-    const tokens = tokenize(item.text);
-
-    for (const token of tokens) {
-      vocabulary.add(token);
-      wordCounts[item.label][token] = (wordCounts[item.label][token] || 0) + 1;
-      totalWords[item.label] += 1;
-    }
-  }
-
-  return { wordCounts, docCounts, totalWords, vocabularySize: vocabulary.size, totalDocs: data.length };
-}
-
-function scoreLabel(model, text, label) {
-  const tokens = tokenize(text);
-  let score = Math.log(model.docCounts[label] / model.totalDocs);
-
-  for (const token of tokens) {
-    const count = model.wordCounts[label][token] || 0;
-    const probability = (count + 1) / (model.totalWords[label] + model.vocabularySize);
-    score += Math.log(probability);
-  }
-
-  return score;
-}
-
-function predictSentiment(model, text) {
-  const positiveScore = scoreLabel(model, text, "positive");
-  const negativeScore = scoreLabel(model, text, "negative");
-
-  return positiveScore > negativeScore ? "positive" : "negative";
-}
-
-const model = trainNaiveBayes(trainingData);
-const testText = "clear helpful lesson";
-const prediction = predictSentiment(model, testText);
-
-console.log("Text:", testText);
-console.log("Prediction:", prediction);`}
-/>
-
-## 你可以马上改
-
-- 把 `const testText = "clear helpful lesson";` 改成 `const testText = "confusing hard lesson";`
-- 再点 `Run Code`
-- 看结果会不会变成 `negative`
