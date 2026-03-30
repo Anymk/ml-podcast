@@ -8,78 +8,82 @@ theme: Code Lab
 difficulty: Beginner
 featured: true
 tags:
-  - python
-  - notebook
+  - javascript
+  - browser
   - beginner
   - code
 title:
-  zh: 直接运行的决策树分类
-  en: Run a Decision Tree Classifier
+  zh: 页面内运行：KNN 最近邻预测
+  en: Run KNN Prediction in the Page
 summary:
-  zh: 复制这段代码直接运行，用决策树模型预测学生是否会通过测试。
-  en: Copy and run this short script to predict whether a student will pass using a decision tree.
+  zh: 不用跳出网页，直接点击 Run Code，用 KNN 算法预测新学生属于哪个学习组。
+  en: Stay on the page and click Run Code to predict which study group a new learner belongs to with KNN.
 highlights:
   zh:
-    - 直接运行
-    - 直接输出预测结果
-    - 适合 0 基础
+    - 页面内直接运行
+    - 可编辑代码后再次运行
+    - 直接看到预测结果
   en:
-    - Directly runnable
-    - Immediate prediction output
-    - Beginner friendly
+    - Run directly in the page
+    - Edit and rerun
+    - See the prediction immediately
 readingList:
-  - label: Google Colab
-    href: https://colab.research.google.com/
-  - label: scikit-learn Decision Trees
-    href: https://scikit-learn.org/stable/modules/tree.html
+  - label: KNN overview
+    href: https://scikit-learn.org/stable/modules/neighbors.html
+  - label: JavaScript Array methods
+    href: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
 ---
-## Algorithm
+## 直接运行
 
-`DecisionTreeClassifier`
+这个例子会预测一位新学生更像 `beginner` 还是 `advanced`。
 
-## Run This Code
+<CodePlayground
+  title="KNN Prediction Demo"
+  description="这段代码会找到距离最近的 3 个样本，然后投票得到最终分类结果。你可以直接改 newStudent 再点 Run Code。"
+  code={`const trainingData = [
+  { input: [1, 40], label: "beginner" },
+  { input: [2, 45], label: "beginner" },
+  { input: [2, 50], label: "beginner" },
+  { input: [4, 75], label: "advanced" },
+  { input: [5, 80], label: "advanced" },
+  { input: [6, 90], label: "advanced" }
+];
 
-```python
-from sklearn.tree import DecisionTreeClassifier
+function distance(pointA, pointB) {
+  const squared = pointA.reduce((sum, value, index) => {
+    return sum + (value - pointB[index]) ** 2;
+  }, 0);
 
-# X = [study_hours, practice_count]
-X = [
-    [1, 1],
-    [2, 1],
-    [2, 2],
-    [3, 2],
-    [4, 3],
-    [5, 4]
-]
+  return Math.sqrt(squared);
+}
 
-# y = 0 means fail, 1 means pass
-y = [0, 0, 0, 1, 1, 1]
+function knnPredict(data, newPoint, k) {
+  const neighbors = data
+    .map((item) => ({
+      label: item.label,
+      distance: distance(item.input, newPoint)
+    }))
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, k);
 
-model = DecisionTreeClassifier(random_state=42)
-model.fit(X, y)
+  const votes = {};
 
-new_student = [[3, 3]]
-prediction = model.predict(new_student)
+  for (const neighbor of neighbors) {
+    votes[neighbor.label] = (votes[neighbor.label] || 0) + 1;
+  }
 
-print("Prediction:", prediction[0])
-```
+  return Object.entries(votes).sort((a, b) => b[1] - a[1])[0][0];
+}
 
-## Expected Output
+const newStudent = [3, 60];
+const prediction = knnPredict(trainingData, newStudent, 3);
 
-```python
-Prediction: 1
-```
+console.log("New student:", newStudent);
+console.log("Prediction:", prediction);`}
+/>
 
-## What It Means
+## 你可以马上改
 
-`1` 表示模型预测这位学生更可能通过。
-
-## Try One Change
-
-把这行改掉，再运行一次：
-
-```python
-new_student = [[1, 1]]
-```
-
-看看输出会不会从 `1` 变成 `0`。
+- 把 `const newStudent = [3, 60];` 改成 `const newStudent = [6, 88];`
+- 再点一次 `Run Code`
+- 看结果会不会更接近 `advanced`

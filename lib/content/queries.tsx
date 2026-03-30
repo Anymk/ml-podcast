@@ -2,6 +2,7 @@ import "server-only";
 
 import { compileMDX } from "next-mdx-remote/rsc";
 
+import { CodePlayground } from "@/components/code-playground";
 import { contentRepository } from "@/lib/content/repository";
 import type { Episode, Series } from "@/types/content";
 
@@ -68,7 +69,8 @@ export async function renderEpisodeBody(source: string) {
       a: (props) => <a className="mdx-a" {...props} />,
       blockquote: (props) => <blockquote className="mdx-quote" {...props} />,
       code: (props) => <code className="mdx-code" {...props} />,
-      pre: (props) => <pre className="mdx-pre" {...props} />
+      pre: (props) => <pre className="mdx-pre" {...props} />,
+      CodePlayground
     }
   });
 

@@ -8,82 +8,78 @@ theme: Code Lab
 difficulty: Beginner
 featured: true
 tags:
-  - code-reading
-  - python
-  - workflow
+  - javascript
+  - browser
+  - beginner
   - code
 title:
-  zh: 直接运行的逻辑回归预测
-  en: Run a Logistic Regression Prediction
+  zh: 页面内运行：线性回归预测
+  en: Run Linear Regression in the Page
 summary:
-  zh: 复制这段代码直接运行，用逻辑回归模型预测用户是否会购买课程。
-  en: Copy and run this short script to predict whether a learner will buy a course using logistic regression.
+  zh: 直接在页面里运行线性回归代码，根据学习小时数预测测验分数。
+  en: Run linear regression directly in the page to predict a quiz score from study hours.
 highlights:
   zh:
-    - 一个算法一个例子
-    - 直接打印预测结果
-    - 适合初学者反复改参数
+    - 页面内直接运行
+    - 输入学习时长就能得到预测分数
+    - 适合 0 基础理解回归
   en:
-    - One algorithm per lesson
-    - Immediate prediction output
-    - Easy to tweak for beginners
+    - Run directly in the page
+    - Enter study hours and get a score prediction
+    - Beginner friendly regression lesson
 readingList:
-  - label: scikit-learn Logistic Regression
-    href: https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
-  - label: Google Colab
-    href: https://colab.research.google.com/
+  - label: Linear regression intro
+    href: https://developers.google.com/machine-learning/crash-course/linear-regression
+  - label: JavaScript basics
+    href: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting
 ---
-## Algorithm
+## 直接运行
 
-`LogisticRegression`
+这个例子会根据学习小时数，预测一位学生可能拿到的测验分数。
 
-## Run This Code
+<CodePlayground
+  title="Linear Regression Demo"
+  description="这段代码先根据训练数据算出一条直线，再用这条直线预测新学生的分数。你可以直接修改 newHours。"
+  code={`const hours = [1, 2, 3, 4, 5];
+const scores = [48, 55, 63, 72, 81];
 
-```python
-from sklearn.linear_model import LogisticRegression
+function mean(values) {
+  return values.reduce((sum, value) => sum + value, 0) / values.length;
+}
 
-# X = [watched_minutes, clicked_lessons]
-X = [
-    [5, 1],
-    [8, 1],
-    [12, 2],
-    [20, 3],
-    [30, 4],
-    [45, 5]
-]
+function fitLinearRegression(xs, ys) {
+  const xMean = mean(xs);
+  const yMean = mean(ys);
 
-# y = 0 means not buy, 1 means buy
-y = [0, 0, 0, 1, 1, 1]
+  let numerator = 0;
+  let denominator = 0;
 
-model = LogisticRegression()
-model.fit(X, y)
+  for (let i = 0; i < xs.length; i += 1) {
+    numerator += (xs[i] - xMean) * (ys[i] - yMean);
+    denominator += (xs[i] - xMean) ** 2;
+  }
 
-new_user = [[25, 3]]
-prediction = model.predict(new_user)
-probability = model.predict_proba(new_user)
+  const slope = numerator / denominator;
+  const intercept = yMean - slope * xMean;
 
-print("Prediction:", prediction[0])
-print("Buy probability:", round(probability[0][1], 2))
-```
+  return { slope, intercept };
+}
 
-## Expected Output
+function predictScore(model, hour) {
+  return model.slope * hour + model.intercept;
+}
 
-```python
-Prediction: 1
-Buy probability: 0.xx
-```
+const model = fitLinearRegression(hours, scores);
+const newHours = 6;
+const predictedScore = predictScore(model, newHours);
 
-## What It Means
+console.log("Slope:", model.slope.toFixed(2));
+console.log("Intercept:", model.intercept.toFixed(2));
+console.log("Predicted score:", predictedScore.toFixed(1));`}
+/>
 
-`Prediction: 1` 表示模型预测这位用户更可能购买课程。  
-`Buy probability` 是模型给出的购买概率。
+## 你可以马上改
 
-## Try One Change
-
-把这行改成：
-
-```python
-new_user = [[6, 1]]
-```
-
-再次运行，观察 `Prediction` 和概率有没有下降。
+- 把 `const newHours = 6;` 改成 `const newHours = 2.5;`
+- 再点 `Run Code`
+- 看预测分数会怎么变化

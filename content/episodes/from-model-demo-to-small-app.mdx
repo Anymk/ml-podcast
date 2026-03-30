@@ -8,88 +8,101 @@ theme: Code Lab
 difficulty: Beginner
 featured: false
 tags:
-  - app
-  - deployment
+  - javascript
+  - browser
   - beginner
   - code
 title:
-  zh: 直接运行的 KNN 预测
-  en: Run a KNN Prediction
+  zh: 页面内运行：朴素贝叶斯文本分类
+  en: Run Naive Bayes Text Classification in the Page
 summary:
-  zh: 复制这段代码直接运行，用 KNN 模型预测一条新数据属于哪一类。
-  en: Copy and run this short script to classify a new sample using KNN.
+  zh: 在页面里直接运行一个最小版朴素贝叶斯例子，判断一句话更像积极评价还是消极评价。
+  en: Run a tiny Naive Bayes example in the page and classify a sentence as positive or negative.
 highlights:
   zh:
-    - 可直接运行
-    - 直接看到分类结果
-    - 从模型到小应用最容易理解的一步
+    - 页面内直接运行
+    - 直接输出分类结果
+    - 能马上修改文本重新预测
   en:
-    - Directly runnable
-    - Immediate classification result
-    - A simple step from model to tiny app logic
+    - Run directly in the page
+    - Immediate classification output
+    - Edit the text and rerun instantly
 readingList:
-  - label: scikit-learn KNN
-    href: https://scikit-learn.org/stable/modules/neighbors.html
-  - label: Google Colab
-    href: https://colab.research.google.com/
+  - label: Naive Bayes overview
+    href: https://scikit-learn.org/stable/modules/naive_bayes.html
+  - label: Tokenization basics
+    href: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split
 ---
-## Algorithm
+## 直接运行
 
-`KNeighborsClassifier`
+这个例子会判断一句评论更像 `positive` 还是 `negative`。
 
-## Run This Code
+<CodePlayground
+  title="Naive Bayes Demo"
+  description="这段代码先统计正面和负面句子里的单词，再对新句子做分类。你可以直接修改 testText。"
+  code={`const trainingData = [
+  { text: "good course clear lesson", label: "positive" },
+  { text: "helpful teacher nice examples", label: "positive" },
+  { text: "great tutorial easy to follow", label: "positive" },
+  { text: "bad course confusing lesson", label: "negative" },
+  { text: "boring teacher unclear examples", label: "negative" },
+  { text: "hard tutorial not helpful", label: "negative" }
+];
 
-```python
-from sklearn.neighbors import KNeighborsClassifier
+function tokenize(text) {
+  return text.toLowerCase().split(" ");
+}
 
-# X = [study_hours, quiz_score]
-X = [
-    [1, 40],
-    [2, 45],
-    [2, 50],
-    [4, 75],
-    [5, 80],
-    [6, 90]
-]
+function trainNaiveBayes(data) {
+  const wordCounts = { positive: {}, negative: {} };
+  const docCounts = { positive: 0, negative: 0 };
+  const totalWords = { positive: 0, negative: 0 };
+  const vocabulary = new Set();
 
-# y = 0 means beginner group, 1 means advanced group
-y = [0, 0, 0, 1, 1, 1]
+  for (const item of data) {
+    docCounts[item.label] += 1;
+    const tokens = tokenize(item.text);
 
-model = KNeighborsClassifier(n_neighbors=3)
-model.fit(X, y)
+    for (const token of tokens) {
+      vocabulary.add(token);
+      wordCounts[item.label][token] = (wordCounts[item.label][token] || 0) + 1;
+      totalWords[item.label] += 1;
+    }
+  }
 
-new_student = [[3, 60]]
-prediction = model.predict(new_student)
+  return { wordCounts, docCounts, totalWords, vocabularySize: vocabulary.size, totalDocs: data.length };
+}
 
-print("Prediction:", prediction[0])
-```
+function scoreLabel(model, text, label) {
+  const tokens = tokenize(text);
+  let score = Math.log(model.docCounts[label] / model.totalDocs);
 
-## Expected Output
+  for (const token of tokens) {
+    const count = model.wordCounts[label][token] || 0;
+    const probability = (count + 1) / (model.totalWords[label] + model.vocabularySize);
+    score += Math.log(probability);
+  }
 
-```python
-Prediction: 0
-```
+  return score;
+}
 
-## What It Means
+function predictSentiment(model, text) {
+  const positiveScore = scoreLabel(model, text, "positive");
+  const negativeScore = scoreLabel(model, text, "negative");
 
-`0` 表示模型预测这位学生更接近 beginner group。
+  return positiveScore > negativeScore ? "positive" : "negative";
+}
 
-## Tiny App Version
+const model = trainNaiveBayes(trainingData);
+const testText = "clear helpful lesson";
+const prediction = predictSentiment(model, testText);
 
-```python
-def predict_group(study_hours, quiz_score):
-    result = model.predict([[study_hours, quiz_score]])[0]
-    return "advanced" if result == 1 else "beginner"
+console.log("Text:", testText);
+console.log("Prediction:", prediction);`}
+/>
 
-print(predict_group(3, 60))
-```
+## 你可以马上改
 
-## Try One Change
-
-把这行改成：
-
-```python
-print(predict_group(6, 88))
-```
-
-看看结果会不会变成 `advanced`。
+- 把 `const testText = "clear helpful lesson";` 改成 `const testText = "confusing hard lesson";`
+- 再点 `Run Code`
+- 看结果会不会变成 `negative`
