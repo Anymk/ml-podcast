@@ -12,11 +12,19 @@ export async function getHomeData() {
     contentRepository.getResources()
   ]);
 
+  const beginnerCodeSeries = series.find((item) => item.slug === "ml-code-lab") ?? null;
+
   return {
     featuredSeries: series.slice(0, 3),
     featuredEpisodes: episodes.filter((item) => item.featured).slice(0, 3),
     latestEpisodes: episodes.slice(0, 6),
-    featuredResources: resources.slice(0, 4)
+    featuredResources: resources.slice(0, 4),
+    beginnerCodeSeries,
+    totals: {
+      series: series.length,
+      episodes: episodes.length,
+      resources: resources.length
+    }
   };
 }
 

@@ -3,7 +3,7 @@
   "cover": "/covers/llm-builders.svg",
   "theme": "LLM Systems",
   "difficulty": "Intermediate",
-  "order": 2,
+  "order": 3,
   "audience": {
     "zh": "适合已经理解基础 ML 概念、想进一步做 LLM 产品原型的开发者",
     "en": "Best for developers who know core ML concepts and want to prototype LLM products"

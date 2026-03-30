@@ -58,5 +58,35 @@
       "zh": "追踪论文、任务和 benchmark 的高密度入口。",
       "en": "A dense starting point for papers, tasks, implementations, and benchmarks."
     }
+  },
+  {
+    "slug": "google-colab",
+    "type": "Tool",
+    "href": "https://colab.research.google.com/",
+    "stage": "Starter",
+    "tags": ["notebook", "python", "practice"],
+    "title": {
+      "zh": "Google Colab",
+      "en": "Google Colab"
+    },
+    "summary": {
+      "zh": "最适合 0 基础快速开始写机器学习代码的在线 Notebook 环境。",
+      "en": "An online notebook environment that makes it easy for total beginners to start writing ML code."
+    }
+  },
+  {
+    "slug": "kaggle-learn-python",
+    "type": "Course",
+    "href": "https://www.kaggle.com/learn",
+    "stage": "Starter",
+    "tags": ["python", "notebook", "beginner"],
+    "title": {
+      "zh": "Kaggle Learn",
+      "en": "Kaggle Learn"
+    },
+    "summary": {
+      "zh": "用很轻的节奏补 Python、Pandas 和入门机器学习，适合边学边练。",
+      "en": "A lightweight path for learning Python, Pandas, and introductory ML through short hands-on lessons."
+    }
   }
 ]

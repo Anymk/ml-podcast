@@ -1,0 +1,70 @@
+---
+slug: from-model-demo-to-small-app
+seriesSlug: ml-code-lab
+publishedAt: 2026-03-28
+duration: 15 min
+cover: /covers/episode-06.svg
+theme: Code Lab
+difficulty: Beginner
+featured: false
+tags:
+  - app
+  - deployment
+  - beginner
+title:
+  zh: 从模型 Demo 到一个小型应用
+  en: From a Model Demo to a Small App
+summary:
+  zh: 当你已经能跑通一个最小模型示例，下一步是把它放进一个真正可交互的小应用里。
+  en: Once a tiny model demo works, the next step is turning it into a small interactive app people can actually use.
+highlights:
+  zh:
+    - 区分“模型能跑”和“产品能用”之间的差距
+    - 先做一个输入清晰、输出简单的小工具
+    - 学会把实验代码收缩成更小的功能模块
+  en:
+    - Separate “the model runs” from “the product is usable”
+    - Start with a tool that has clear input and simple output
+    - Learn how to shrink experimental code into a smaller feature module
+readingList:
+  - label: Google Colab
+    href: https://colab.research.google.com/
+  - label: Hugging Face Learn
+    href: https://huggingface.co/learn
+---
+## 为什么很多人卡在“能跑”之后
+
+跑通一个 Notebook 会让人很有成就感，但真正把它变成能给别人使用的小工具，又是另一层挑战。
+
+因为这时候你不再只关心模型本身，还要开始关心：
+
+- 用户输入长什么样
+- 输出应该怎么展示
+- 哪一部分代码要保留，哪一部分只是实验痕迹
+
+## 先做很小的应用
+
+对初学者来说，最好不要一开始就想做完整平台。先做一个小工具会更有效，比如：
+
+- 输入一段文本，输出分类结果
+- 输入几个数值，输出预测区间
+- 输入一张图片，输出一个简单判断
+
+这类工具的价值在于，你会第一次感受到“模型是产品的一部分，而不是全部”。
+
+## 代码要开始收缩
+
+在 Notebook 里，很多代码是为了方便实验而存在的；但在应用里，你需要开始思考哪些代码是真正必要的。
+
+一个很实用的思路是：
+
+- 保留输入处理
+- 保留模型调用
+- 保留结果输出
+- 尽量删除只为调试而写的内容
+
+## 学会从实验过渡到功能
+
+当你开始有能力把实验代码收缩成一个小功能时，你就真正从“只会看例子”走向了“开始构建东西”。
+
+这一步不需要很大，但它非常关键。

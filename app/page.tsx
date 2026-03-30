@@ -43,16 +43,16 @@ export default async function Home({
         </div>
         <div className="hero-panel">
           <div className="stat-block">
-            <strong>02</strong>
-            <span>{isZh ? "首发课程路径" : "Launch series"}</span>
+            <strong>{String(data.totals.series).padStart(2, "0")}</strong>
+            <span>{isZh ? "学习路径" : "Learning series"}</span>
           </div>
           <div className="stat-block">
-            <strong>03</strong>
-            <span>{isZh ? "示例深度内容" : "Deep-dive episodes"}</span>
+            <strong>{String(data.totals.episodes).padStart(2, "0")}</strong>
+            <span>{isZh ? "深度内容" : "Episodes"}</span>
           </div>
           <div className="stat-block">
-            <strong>04</strong>
-            <span>{isZh ? "精选学习资源" : "Curated resources"}</span>
+            <strong>{String(data.totals.resources).padStart(2, "0")}</strong>
+            <span>{isZh ? "精选资源" : "Curated resources"}</span>
           </div>
         </div>
       </section>
@@ -73,6 +73,41 @@ export default async function Home({
           ))}
         </div>
       </section>
+
+      {data.beginnerCodeSeries ? (
+        <section className="split-band">
+          <div>
+            <p className="eyebrow">ML + Code</p>
+            <h2>
+              {isZh
+                ? "给 0 基础学习者准备的“边写代码边学机器学习”模块"
+                : "A beginner-first module for learning Machine Learning by writing code."}
+            </h2>
+            <p className="hero-copy">
+              {isZh
+                ? "这个模块会从 Python、Notebook、最小训练流程和读代码习惯开始，帮助完全没基础的人把抽象概念落到实际代码里。"
+                : "This module starts with Python, notebooks, tiny training loops, and code reading habits so complete beginners can anchor ML concepts in real code."}
+            </p>
+            <Link className="cta-button" href={`/series/${data.beginnerCodeSeries.slug}?lang=${locale}`}>
+              {isZh ? "进入代码教学模块" : "Open the code-learning module"}
+            </Link>
+          </div>
+          <div className="hero-panel">
+            <div className="stat-block">
+              <strong>{data.beginnerCodeSeries.difficulty}</strong>
+              <span>{isZh ? "适合从零开始" : "Built for beginners"}</span>
+            </div>
+            <div className="stat-block">
+              <strong>{data.beginnerCodeSeries.theme}</strong>
+              <span>{isZh ? "代码导向学习路径" : "Code-first learning path"}</span>
+            </div>
+            <div className="stat-block">
+              <strong>{isZh ? "3+" : "3+"}</strong>
+              <span>{isZh ? "配套实操内容" : "Hands-on companion lessons"}</span>
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="section-block">
         <div className="section-heading">

@@ -1,0 +1,31 @@
+{
+  "slug": "ml-code-lab",
+  "cover": "/covers/ml-code-lab.svg",
+  "theme": "Code Lab",
+  "difficulty": "Beginner",
+  "order": 2,
+  "audience": {
+    "zh": "适合完全没有编程和机器学习基础，但想通过代码真正理解 ML 的学习者",
+    "en": "Best for learners with no coding or ML background who want to understand ML through code."
+  },
+  "title": {
+    "zh": "机器学习代码实验室",
+    "en": "Machine Learning Code Lab"
+  },
+  "summary": {
+    "zh": "从 Python、Notebook、最小训练流程到读懂示例代码，帮助初学者把抽象的机器学习概念落到真实代码上。",
+    "en": "Start with Python, notebooks, tiny training loops, and code reading so beginners can attach ML concepts to real code."
+  },
+  "outcomes": {
+    "zh": [
+      "理解初学者最常见的 ML 代码结构长什么样",
+      "能在 Colab 或本地 Notebook 里跑通一个最小实验",
+      "知道如何从“看懂代码”逐步走到“改动代码”"
+    ],
+    "en": [
+      "Understand what a beginner-friendly ML codebase usually looks like",
+      "Run a minimal experiment in Colab or a local notebook",
+      "Move step by step from reading code to changing code with intent"
+    ]
+  }
+}

@@ -1,0 +1,71 @@
+---
+slug: reading-ml-code-line-by-line
+seriesSlug: ml-code-lab
+publishedAt: 2026-03-29
+duration: 12 min
+cover: /covers/episode-05.svg
+theme: Code Lab
+difficulty: Beginner
+featured: true
+tags:
+  - code-reading
+  - python
+  - workflow
+title:
+  zh: 一行一行读懂机器学习代码
+  en: Reading Machine Learning Code Line by Line
+summary:
+  zh: 先练习怎么读代码，而不是一上来就自己从空白开始写，会让初学者轻松很多。
+  en: Beginners often learn faster by reading working ML code line by line before writing everything from scratch.
+highlights:
+  zh:
+    - 用“数据、处理、训练、输出”四段法读 ML 代码
+    - 先看变量流动，再看库函数细节
+    - 把陌生代码拆成一小段一小段理解
+  en:
+    - Read ML code as four parts: data, processing, training, and output
+    - Track variables before diving into library details
+    - Break unfamiliar code into very small chunks
+readingList:
+  - label: Hands-On Machine Learning
+    href: https://www.oreilly.com/library/view/hands-on-machine-learning/9781098125967/
+  - label: fast.ai course
+    href: https://course.fast.ai/
+---
+## 初学者为什么容易怕代码
+
+因为很多人读代码时会默认自己必须同时理解语法、库、数学含义和工程结构。这个要求太高了，所以看两眼就很容易放弃。
+
+其实你可以先降低目标：**先看懂这段代码“在做哪一种动作”**，而不是立刻看懂每个细节。
+
+## 先看变量怎么流动
+
+对机器学习代码来说，变量流动往往比函数名字更重要。比如：
+
+- 原始数据存在什么变量里
+- 处理后的数据放到了哪里
+- 模型对象是什么
+- 预测结果保存到了哪里
+
+当你能追踪变量流动时，代码就会开始有“剧情”。
+
+## 用四段法拆开
+
+你可以把很多初学者级的 ML 代码都拆成四段：
+
+1. 数据进来
+2. 数据处理
+3. 模型训练
+4. 结果输出
+
+先给每段起名字，再回头看里面每一行，理解难度会明显下降。
+
+## 读代码不是被动行为
+
+一个很有用的方法是，一边看一边问：
+
+- 这一行输入了什么
+- 这一行输出了什么
+- 如果删掉这一行，会发生什么
+
+这会让你从“盯着代码发呆”变成真正地在分析流程。
