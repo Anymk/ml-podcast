@@ -2,7 +2,7 @@
 slug: from-model-demo-to-small-app
 seriesSlug: ml-code-lab
 publishedAt: 2026-03-28
-duration: 15 min
+duration: 19 min
 cover: /covers/episode-06.svg
 theme: Code Lab
 difficulty: Beginner
@@ -11,60 +11,198 @@ tags:
   - app
   - deployment
   - beginner
+  - code
 title:
   zh: 从模型 Demo 到一个小型应用
   en: From a Model Demo to a Small App
 summary:
-  zh: 当你已经能跑通一个最小模型示例，下一步是把它放进一个真正可交互的小应用里。
-  en: Once a tiny model demo works, the next step is turning it into a small interactive app people can actually use.
+  zh: 用最简单的 Python 函数，把一个“能跑的模型例子”收缩成一个可以反复调用的小应用逻辑。
+  en: Turn a working model demo into a tiny reusable app flow with the smallest possible Python function.
 highlights:
   zh:
-    - 区分“模型能跑”和“产品能用”之间的差距
-    - 先做一个输入清晰、输出简单的小工具
-    - 学会把实验代码收缩成更小的功能模块
+    - 理解“模型代码”和“应用代码”不是一回事
+    - 学会把预测逻辑包进函数里
+    - 迈出从 Notebook 到产品思维的第一步
   en:
-    - Separate “the model runs” from “the product is usable”
-    - Start with a tool that has clear input and simple output
-    - Learn how to shrink experimental code into a smaller feature module
+    - See the difference between model code and app code
+    - Learn to wrap prediction logic inside a function
+    - Take the first step from notebooks toward product thinking
 readingList:
   - label: Google Colab
     href: https://colab.research.google.com/
   - label: Hugging Face Learn
     href: https://huggingface.co/learn
 ---
-## 为什么很多人卡在“能跑”之后
+## 只会跑模型，还不等于会做应用
 
-跑通一个 Notebook 会让人很有成就感，但真正把它变成能给别人使用的小工具，又是另一层挑战。
+很多初学者已经能在 Notebook 里跑出一个结果，但一旦要把它变成“别人也能用”的东西，就会立刻卡住。
 
-因为这时候你不再只关心模型本身，还要开始关心：
+原因通常不是模型不够强，而是没有把代码结构整理成“可输入、可输出、可复用”的形式。
 
-- 用户输入长什么样
-- 输出应该怎么展示
-- 哪一部分代码要保留，哪一部分只是实验痕迹
+## 先看一个最小版本
 
-## 先做很小的应用
+下面是一段初学者能理解的小例子：
 
-对初学者来说，最好不要一开始就想做完整平台。先做一个小工具会更有效，比如：
+```python
+from sklearn.tree import DecisionTreeClassifier
 
-- 输入一段文本，输出分类结果
-- 输入几个数值，输出预测区间
-- 输入一张图片，输出一个简单判断
+X = [
+    [1, 1],
+    [2, 1],
+    [2, 2],
+    [3, 2],
+    [4, 3],
+    [5, 4]
+]
 
-这类工具的价值在于，你会第一次感受到“模型是产品的一部分，而不是全部”。
+y = [0, 0, 0, 1, 1, 1]
 
-## 代码要开始收缩
+model = DecisionTreeClassifier()
+model.fit(X, y)
 
-在 Notebook 里，很多代码是为了方便实验而存在的；但在应用里，你需要开始思考哪些代码是真正必要的。
+def predict_pass(hours, practice_count):
+    result = model.predict([[hours, practice_count]])[0]
+    if result == 1:
+        return "Likely pass"
+    return "Likely not pass"
 
-一个很实用的思路是：
+print(predict_pass(3, 3))
+print(predict_pass(1, 1))
+```
 
-- 保留输入处理
-- 保留模型调用
-- 保留结果输出
-- 尽量删除只为调试而写的内容
+## 这里新增的关键是什么
 
-## 学会从实验过渡到功能
+和前面的 Notebook 例子相比，最关键的新东西是这个函数：
 
-当你开始有能力把实验代码收缩成一个小功能时，你就真正从“只会看例子”走向了“开始构建东西”。
+```python
+def predict_pass(hours, practice_count):
+    result = model.predict([[hours, practice_count]])[0]
+    if result == 1:
+        return "Likely pass"
+    return "Likely not pass"
+```
 
-这一步不需要很大，但它非常关键。
+你可以把它理解成：
+
+“把原来一段零散的预测代码，包装成一个可以重复调用的小工具。”
+
+## 为什么函数很重要
+
+如果没有函数，你每次预测都要重复写：
+
+```python
+model.predict([[3, 3]])
+```
+
+但有了函数之后，你可以直接写：
+
+```python
+predict_pass(3, 3)
+```
+
+这一步虽然小，但它非常关键，因为它意味着你开始从“做实验”走向“组织功能”。
+
+## 从模型代码到应用代码，差别在哪
+
+### 模型代码更关心
+
+- 数据怎么准备
+- 模型怎么训练
+- 分数如何评估
+
+### 应用代码更关心
+
+- 用户会输入什么
+- 结果要如何表达
+- 逻辑能不能被重复调用
+
+所以当你开始写函数时，你其实已经在做非常早期的产品化思考。
+
+## 再往前走一步：模拟用户输入
+
+你甚至可以继续把它写得更像一个小工具：
+
+```python
+user_hours = 4
+user_practice_count = 2
+
+message = predict_pass(user_hours, user_practice_count)
+print("Prediction result:", message)
+```
+
+这段代码的意义是：
+
+- `user_hours` 和 `user_practice_count` 像是用户输入
+- `message` 像是界面最终展示的结果
+
+虽然它还不是网页，但它已经开始有“应用流程”的味道了。
+
+## 初学者最容易忽略的一点
+
+不要急着把应用做大。
+
+你现在真正需要练习的是：
+
+- 能不能把模型预测封装成一个函数
+- 能不能让函数接受清晰输入
+- 能不能返回容易理解的结果
+
+只要这三件事能做到，你已经比“只会运行 Notebook”前进了一大步。
+
+## 你可以现在动手改的地方
+
+### 练习 1：修改返回文本
+
+把函数里的返回值改成中文：
+
+```python
+if result == 1:
+    return "大概率通过"
+return "大概率不通过"
+```
+
+### 练习 2：多加一个输入参数
+
+尝试把“睡眠时间”也变成输入特征，重新设计 `X`：
+
+```python
+X = [
+    [1, 1, 5],
+    [2, 1, 5],
+    [2, 2, 6],
+    [3, 2, 6],
+    [4, 3, 7],
+    [5, 4, 7]
+]
+```
+
+然后调整函数：
+
+```python
+def predict_pass(hours, practice_count, sleep_hours):
+    result = model.predict([[hours, practice_count, sleep_hours]])[0]
+    ...
+```
+
+### 练习 3：把函数接到一个最小网页想象里
+
+想象将来网页上会有两个输入框：
+
+- 每天学习小时数
+- 每周练习次数
+
+点击按钮后，调用：
+
+```python
+predict_pass(hours, practice_count)
+```
+
+这就是最小产品原型的逻辑核心。
+
+## 这一课要带走什么
+
+从 Demo 到应用，不是一步跳到复杂系统，而是先完成这件小事：
+
+**把一次预测，封装成一个别人可以重复使用的函数。**
+
+当你开始这样写代码时，你就已经不是只会“跑例子”，而是在慢慢学会“做东西”。

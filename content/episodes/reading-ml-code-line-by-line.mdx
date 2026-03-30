@@ -2,7 +2,7 @@
 slug: reading-ml-code-line-by-line
 seriesSlug: ml-code-lab
 publishedAt: 2026-03-29
-duration: 12 min
+duration: 16 min
 cover: /covers/episode-05.svg
 theme: Code Lab
 difficulty: Beginner
@@ -11,61 +11,240 @@ tags:
   - code-reading
   - python
   - workflow
+  - code
 title:
   zh: 一行一行读懂机器学习代码
   en: Reading Machine Learning Code Line by Line
 summary:
-  zh: 先练习怎么读代码，而不是一上来就自己从空白开始写，会让初学者轻松很多。
-  en: Beginners often learn faster by reading working ML code line by line before writing everything from scratch.
+  zh: 用一个真实但足够小的 Python 例子，教初学者怎么拆开看机器学习代码，而不是一上来就被整段代码吓住。
+  en: Use a small but real Python example to teach beginners how to break ML code apart instead of being overwhelmed.
 highlights:
   zh:
-    - 用“数据、处理、训练、输出”四段法读 ML 代码
-    - 先看变量流动，再看库函数细节
-    - 把陌生代码拆成一小段一小段理解
+    - 学会用“数据、处理、训练、预测”四段法读代码
+    - 知道该先看变量，还是先看函数
+    - 每看一小段代码，都能问出一个具体问题
   en:
-    - Read ML code as four parts: data, processing, training, and output
-    - Track variables before diving into library details
-    - Break unfamiliar code into very small chunks
+    - Read code as four parts: data, processing, training, prediction
+    - Know when to focus on variables before functions
+    - Turn every small code section into one concrete question
 readingList:
   - label: Hands-On Machine Learning
     href: https://www.oreilly.com/library/view/hands-on-machine-learning/9781098125967/
   - label: fast.ai course
     href: https://course.fast.ai/
 ---
-## 初学者为什么容易怕代码
+## 这一课不是让你背代码
 
-因为很多人读代码时会默认自己必须同时理解语法、库、数学含义和工程结构。这个要求太高了，所以看两眼就很容易放弃。
+很多初学者失败，不是因为不努力，而是因为读代码时默认自己必须“一次看懂所有东西”。
 
-其实你可以先降低目标：**先看懂这段代码“在做哪一种动作”**，而不是立刻看懂每个细节。
+其实更好的方式是：
 
-## 先看变量怎么流动
+- 先拆块
+- 再看变量怎么流动
+- 最后才补函数和库的细节
 
-对机器学习代码来说，变量流动往往比函数名字更重要。比如：
+## 先看一段例子
 
-- 原始数据存在什么变量里
-- 处理后的数据放到了哪里
-- 模型对象是什么
-- 预测结果保存到了哪里
+```python
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
 
-当你能追踪变量流动时，代码就会开始有“剧情”。
+X = [
+    [20, 2],
+    [22, 3],
+    [25, 5],
+    [30, 7],
+    [35, 9],
+    [40, 12]
+]
 
-## 用四段法拆开
+y = [0, 0, 0, 1, 1, 1]
 
-你可以把很多初学者级的 ML 代码都拆成四段：
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.33, random_state=42
+)
 
-1. 数据进来
-2. 数据处理
-3. 模型训练
-4. 结果输出
+model = LogisticRegression()
+model.fit(X_train, y_train)
 
-先给每段起名字，再回头看里面每一行，理解难度会明显下降。
+predictions = model.predict(X_test)
 
-## 读代码不是被动行为
+print("Test predictions:", predictions)
+print("Test labels:", y_test)
+```
 
-一个很有用的方法是，一边看一边问：
+如果你第一次看到这段代码，先不要急着问每个函数是什么意思。请先做第一步：
 
-- 这一行输入了什么
-- 这一行输出了什么
-- 如果删掉这一行，会发生什么
+## 第一步：给代码分段
 
-这会让你从“盯着代码发呆”变成真正地在分析流程。
+你可以先把这段代码切成 4 段：
+
+### A. 导入工具
+
+```python
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+```
+
+这里只是在说：我们接下来要用“拆分数据”和“逻辑回归模型”两个工具。
+
+### B. 准备数据
+
+```python
+X = [
+    [20, 2],
+    [22, 3],
+    [25, 5],
+    [30, 7],
+    [35, 9],
+    [40, 12]
+]
+
+y = [0, 0, 0, 1, 1, 1]
+```
+
+这部分就是“输入”和“答案”。
+
+这里你还不需要知道 `[20, 2]` 具体代表什么业务，只需要知道：
+
+- `X` 是模型看到的数据
+- `y` 是我们给模型的正确答案
+
+### C. 训练前拆分
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.33, random_state=42
+)
+```
+
+这一行长得很吓人，但你可以先只理解成一句中文：
+
+“把数据分成训练用和测试用两部分。”
+
+你第一次看代码时，能做到这一步就已经很好了。
+
+### D. 训练和预测
+
+```python
+model = LogisticRegression()
+model.fit(X_train, y_train)
+predictions = model.predict(X_test)
+```
+
+这里发生了 3 件事：
+
+1. 创建模型
+2. 用训练数据学习
+3. 对测试数据做预测
+
+## 第二步：不要先看函数，先看变量
+
+很多初学者会马上去查 `train_test_split` 和 `LogisticRegression` 是什么，但其实你可以先追变量。
+
+比如这一段：
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(X, y, ...)
+```
+
+你只需要问：
+
+- 原来的 `X` 去哪了
+- 原来的 `y` 去哪了
+- 新变量各自负责什么
+
+于是你会得到一个很清楚的认识：
+
+- `X_train`：训练时用的输入
+- `X_test`：测试时用的输入
+- `y_train`：训练时对应的答案
+- `y_test`：测试时对应的答案
+
+## 第三步：每一行问一个小问题
+
+你可以这样练习：
+
+### 看这行
+
+```python
+model = LogisticRegression()
+```
+
+问自己：
+
+- 这行输出了什么变量
+- 这个变量后面会不会继续被使用
+
+答案是：
+
+- 输出了 `model`
+- 后面 `fit()` 和 `predict()` 都会继续用到它
+
+### 再看这行
+
+```python
+model.fit(X_train, y_train)
+```
+
+问自己：
+
+- 谁在学习
+- 学习材料是什么
+
+答案是：
+
+- `model` 在学习
+- 学习材料是 `X_train` 和 `y_train`
+
+### 再看这行
+
+```python
+predictions = model.predict(X_test)
+```
+
+问自己：
+
+- 输入是谁
+- 输出是谁
+
+答案是：
+
+- 输入是 `X_test`
+- 输出是 `predictions`
+
+## 给初学者的代码阅读模板
+
+以后你看到任何一段入门级 ML 代码，都可以拿下面这张小模板来问：
+
+```python
+1. 这一段是在准备数据吗？
+2. 这一段是在处理数据吗？
+3. 这一段是在训练模型吗？
+4. 这一段是在做预测吗？
+5. 新变量是从哪来，又被谁继续使用？
+```
+
+这会比你一开始就死磕库文档更有效。
+
+## 小练习
+
+请你自己回答下面 3 个问题：
+
+1. 如果删掉 `model.fit(...)` 会怎样？
+2. 如果把 `X_test` 换成 `X_train`，预测会变成什么性质？
+3. 如果 `predictions` 打印出来和 `y_test` 很接近，这表示什么？
+
+只要你能开始回答这些问题，你就已经不再是“只是盯着代码看”的状态了。
+
+## 这一课要带走什么
+
+你不需要一次看懂全部。
+
+真正有用的顺序是：
+
+1. 先分段
+2. 再追变量
+3. 最后补函数和模型细节
+
+这样你会越来越敢打开真正的机器学习代码，而不是每次都被代码长度吓退。
