@@ -2,7 +2,7 @@
 slug: your-first-ml-code-notebook
 seriesSlug: ml-code-lab
 publishedAt: 2026-03-30
-duration: 18 min
+duration: 8 min
 cover: /covers/episode-04.svg
 theme: Code Lab
 difficulty: Beginner
@@ -13,46 +13,36 @@ tags:
   - beginner
   - code
 title:
-  zh: 你的第一份机器学习代码 Notebook
-  en: Your First Machine Learning Code Notebook
+  zh: 直接运行的决策树分类
+  en: Run a Decision Tree Classifier
 summary:
-  zh: 用一份可以直接复制到 Colab 的最小代码，带 0 基础学习者第一次看懂“数据、训练、预测”到底怎么串起来。
-  en: Use a tiny Colab-ready script to help beginners understand how data, training, and prediction connect.
+  zh: 复制这段代码直接运行，用决策树模型预测学生是否会通过测试。
+  en: Copy and run this short script to predict whether a student will pass using a decision tree.
 highlights:
   zh:
-    - 先跑通一个最小分类模型，而不是先理解所有数学
-    - 每一段代码都对应一个明确动作：准备数据、训练模型、查看结果
-    - 读完后能自己改动输入数据并重新运行
+    - 直接运行
+    - 直接输出预测结果
+    - 适合 0 基础
   en:
-    - Run a tiny classifier before trying to understand all the math
-    - Map each code block to one action: prepare data, train model, inspect results
-    - Finish with enough confidence to edit the data and rerun it yourself
+    - Directly runnable
+    - Immediate prediction output
+    - Beginner friendly
 readingList:
   - label: Google Colab
     href: https://colab.research.google.com/
-  - label: Kaggle Learn
-    href: https://www.kaggle.com/learn
+  - label: scikit-learn Decision Trees
+    href: https://scikit-learn.org/stable/modules/tree.html
 ---
-## 这一课的目标
+## Algorithm
 
-如果你是 0 基础，现在最重要的不是“掌握机器学习”，而是第一次真正跑通一段完整代码，并知道每一段在做什么。
+`DecisionTreeClassifier`
 
-这份例子会做一件非常简单的事情：
-
-- 输入几条学生的学习数据
-- 让模型学习“是否通过”
-- 用新数据做预测
-
-你不需要先懂高等数学，只需要先建立一个流程感。
-
-## 先把这段代码复制到 Colab
+## Run This Code
 
 ```python
 from sklearn.tree import DecisionTreeClassifier
 
-# 1) 准备训练数据
-# 每一行代表一个学生：
-# [每天学习小时数, 一周练习次数]
+# X = [study_hours, practice_count]
 X = [
     [1, 1],
     [2, 1],
@@ -62,199 +52,34 @@ X = [
     [5, 4]
 ]
 
-# 2) 准备答案
-# 0 表示没有通过，1 表示通过
+# y = 0 means fail, 1 means pass
 y = [0, 0, 0, 1, 1, 1]
 
-# 3) 创建模型
-model = DecisionTreeClassifier()
-
-# 4) 训练模型
+model = DecisionTreeClassifier(random_state=42)
 model.fit(X, y)
 
-# 5) 让模型预测一位新学生
-prediction = model.predict([[3, 3]])
+new_student = [[3, 3]]
+prediction = model.predict(new_student)
 
 print("Prediction:", prediction[0])
 ```
 
-## 先不要怕这些英文单词
-
-你现在只要把它当成 5 个动作：
-
-1. `X` 是输入数据
-2. `y` 是正确答案
-3. `model` 是我们选的模型
-4. `fit()` 表示“让模型学习”
-5. `predict()` 表示“让模型做判断”
-
-这就是很多入门机器学习代码最核心的骨架。
-
-## 一行一行解释
-
-### 1. 导入工具
-
-```python
-from sklearn.tree import DecisionTreeClassifier
-```
-
-这行代码的意思是：我们从 `scikit-learn` 这个机器学习工具包里，拿一个叫 `DecisionTreeClassifier` 的分类模型出来用。
-
-现在你不需要知道决策树内部细节，只要知道它是一个“可以学习并分类”的工具。
-
-### 2. 输入数据 `X`
-
-```python
-X = [
-    [1, 1],
-    [2, 1],
-    [2, 2],
-    [3, 2],
-    [4, 3],
-    [5, 4]
-]
-```
-
-这里的 `X` 可以理解成“模型看到的事实”。
-
-比如第一行：
-
-```python
-[1, 1]
-```
-
-表示这个学生：
-
-- 每天学习 1 小时
-- 一周练习 1 次
-
-机器学习里的输入数据，本质上就是一行一行这样的数字特征。
-
-### 3. 标签 `y`
-
-```python
-y = [0, 0, 0, 1, 1, 1]
-```
-
-`y` 是每一行输入对应的正确答案。
-
-你可以这样对应去看：
-
-- `[1, 1] -> 0`
-- `[2, 1] -> 0`
-- `[3, 2] -> 1`
-
-也就是说，模型不是自己凭空变聪明，而是通过这些“输入 + 正确答案”的组合去学习模式。
-
-### 4. 创建模型
-
-```python
-model = DecisionTreeClassifier()
-```
-
-这行代码像是在说：
-
-“请帮我创建一个还没学过东西的空模型。”
-
-此时模型还什么都不会，只是一个准备好的工具对象。
-
-### 5. 训练模型
-
-```python
-model.fit(X, y)
-```
-
-这是最重要的一行之一。
-
-`fit(X, y)` 的意思可以先粗略理解成：
-
-“请根据这些输入 `X` 和正确答案 `y`，自己去找里面的规律。”
-
-只要你记住：**`fit` = 学习**，就已经很够用了。
-
-### 6. 做预测
-
-```python
-prediction = model.predict([[3, 3]])
-```
-
-这里我们给模型一条新数据：
-
-- 每天学习 3 小时
-- 一周练习 3 次
-
-然后问模型：
-
-“你觉得这个学生更像通过还是没通过？”
-
-### 7. 打印结果
-
-```python
-print("Prediction:", prediction[0])
-```
-
-如果输出是：
+## Expected Output
 
 ```python
 Prediction: 1
 ```
 
-就表示模型判断这个学生“更可能通过”。
+## What It Means
 
-## 现在你已经会看一个最小 ML 流程了
+`1` 表示模型预测这位学生更可能通过。
 
-你刚刚已经接触了最基本的机器学习代码结构：
+## Try One Change
 
-```python
-准备数据 -> 准备答案 -> 创建模型 -> 训练 -> 预测
-```
-
-以后你看到更复杂的机器学习项目，也可以先去找这几个部分分别在哪。
-
-## 你现在就可以做的 3 个练习
-
-### 练习 1：改一个输入
-
-把：
+把这行改掉，再运行一次：
 
 ```python
-prediction = model.predict([[3, 3]])
+new_student = [[1, 1]]
 ```
 
-改成：
-
-```python
-prediction = model.predict([[1, 2]])
-```
-
-看看输出会不会变化。
-
-### 练习 2：自己加一行训练数据
-
-比如加一位学习更努力的学生：
-
-```python
-X.append([6, 5])
-y.append(1)
-```
-
-然后重新运行整份 Notebook。
-
-### 练习 3：把“通过”换成别的任务
-
-你也可以把这个例子想成：
-
-- 是否会购买课程
-- 是否会点击推荐
-- 是否会通过面试
-
-你会发现，很多机器学习入门问题本质上只是“输入数据不同，答案不同”。
-
-## 这一课要带走什么
-
-如果你只记住两件事，就记这两件：
-
-1. 机器学习代码最小骨架通常是 `X -> y -> fit -> predict`
-2. 初学时先把流程跑通，比一开始追求复杂模型重要得多
-
-下一课我们继续做一件更重要的事：不是写更多代码，而是练习**怎么读懂一段机器学习代码**。
+看看输出会不会从 `1` 变成 `0`。
